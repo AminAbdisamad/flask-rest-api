@@ -98,6 +98,16 @@ def updateProduct(id):
     db.session.commit()
     return product_schema.jsonify(product)
 
+# Delete Product
+@app.route("/product/<id>", methods=['DELETE'])
+def deleteProduct(id):
+    product = Product.query.get(id)
+    if product:
+        db.session.delete(product)
+        db.session.commit()
+        return jsonify({"message": "Product deleted sucessfully"})
+    return jsonify({"Error": "Product doesnt Exist"}), 404
+
 
 # run api
 if __name__ == '__main__':
