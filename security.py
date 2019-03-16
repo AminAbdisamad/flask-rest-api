@@ -1,4 +1,5 @@
 from models.user import UserModel
+
 SECRET_KEY = 'thisisthesecret'
 
 # users = {

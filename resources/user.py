@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask_restful import Resource
 from db import db
 from models.user import UserModel, UserSchema
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # userSchema
 user_schema = UserSchema(strict=True)
@@ -14,11 +14,12 @@ class RegisterUser(Resource):
     def post(self):
 
         username = request.json['username']
-        password = request.json['password']
+        hashedPassword = generate_password_hash(
+            request.json['password'], method="sha256")
         userExist = UserModel.findUserByUsername(username)
         if userExist:
             return ({"message": "User already registered"})
-        newUser = UserModel(username, password)
+        newUser = UserModel(username, hashedPassword)
         if newUser:
             db.session.add(newUser)
             db.session.commit()

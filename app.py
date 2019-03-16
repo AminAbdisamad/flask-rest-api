@@ -2,6 +2,7 @@ from db import apps
 from flask_restful import Api
 from resources.product import ProductAPI, AddProduct, GetAllProducts
 from resources.user import RegisterUser, GetUsers, Users
+
 from security import SECRET_KEY, authenticate, identity
 
 # init api
