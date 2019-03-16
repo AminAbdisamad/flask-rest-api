@@ -10,10 +10,11 @@ autopep8 = "*"
 
 [packages]
 flask-restful = "*"
-falsk-sqlalchemy = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 flask-sqlalchemy = "*"
+flask = "*"
+flask-jwt = "*"
 
 [requires]
 python_version = "3.7"

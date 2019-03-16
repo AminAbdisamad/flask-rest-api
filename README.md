@@ -8,6 +8,7 @@ pipenv install flask-restful
 pipenv install flask-sqlalchemy
 pipenv install flask-marshmallow
 pipenv install marshmallow-sqlalchemy
+pipenv install Flask-JWT
 ```
 
 ### Create database
