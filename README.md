@@ -14,6 +14,6 @@ pipenv install Flask-JWT
 ### Create database
 
 ```python
-from app import db
+from db import db
 db.create_all()
 ```
