@@ -1,5 +1,5 @@
 from models.user import UserModel
-SECRET_KEY = 'Un3v3rkn0w@asd'
+SECRET_KEY = 'thisisthesecret'
 
 # users = {
 #     User(1, 'alex', 'thepass')
@@ -7,6 +7,7 @@ SECRET_KEY = 'Un3v3rkn0w@asd'
 
 # userNameMapping = {x.username: x for x in users}
 # userIdMapping = {x.id: x for x in users}
+# git rm -rf --cached .
 
 
 # Authenticate User
