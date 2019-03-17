@@ -13,7 +13,6 @@ class RegisterUser(Resource):
     # Registering Users
     @jwt_required()
     def post(self):
-
         username = request.json['username']
         hashedPassword = generate_password_hash(
             request.json['password'], method="sha256")
@@ -42,24 +41,26 @@ class Users(Resource):
             return user_schema.jsonify(id)
         return ({"message": "user not found"}), 404
 
-    @jwt_required
+    # @jwt_required
     def delete(self, id):
-        id = UserModel.query.get(id)
-        if id:
-            UserModel.delete(id)
+        userId = UserModel.query.get(id)
+        if userId:
+            UserModel.delete(userId)
             return ({"message": "User Deleted Successfully"})
         return ({"message": "User couldn't found"})
 
-    @jwt_required
+    # @jwt_required
     def put(self, id):
-        id = UserModel.query.get(id)
+        updateUser = UserModel.query.get(id)
         username = request.json['username']
-        password = request.json['password']
-        if id:
-            id.username = username
-            id.password = password
-            UserModel.update(id)
-            return user_schema.jsonify(id)
+        hashedPassword = generate_password_hash(
+            request.json['password'], method="sha256")
+
+        if updateUser:
+            updateUser.username = username
+            updateUser.password = hashedPassword
+            UserModel.update(updateUser)
+            return user_schema.jsonify(updateUser)
         return ({"message": "User does not exist"})
 
 
