@@ -16,3 +16,10 @@ apps.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(apps)
 mm = Marshmallow(apps)
+
+
+# SQLITE commands
+# sqlite 3 db.sql
+# show all abels -> .tables
+# delete table -> drop table {tablename};
+# show table schema -> .schema {tablename}

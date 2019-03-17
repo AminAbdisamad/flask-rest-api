@@ -1,8 +1,8 @@
 from flask import request, jsonify
 from flask_restful import Resource
-from db import db
 from models.user import UserModel, UserSchema
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
+from security import jwt_required
 
 # userSchema
 user_schema = UserSchema(strict=True)
@@ -11,6 +11,7 @@ users_schema = UserSchema(many=True, strict=True)
 
 class RegisterUser(Resource):
     # Registering Users
+    @jwt_required()
     def post(self):
 
         username = request.json['username']
@@ -21,8 +22,7 @@ class RegisterUser(Resource):
             return ({"message": "User already registered"})
         newUser = UserModel(username, hashedPassword)
         if newUser:
-            db.session.add(newUser)
-            db.session.commit()
+            UserModel.save(newUser)
             return user_schema.jsonify(newUser)
         return ({"message": "User could not be registered"})
 
@@ -45,8 +45,7 @@ class Users(Resource):
     def delete(self, id):
         id = UserModel.query.get(id)
         if id:
-            db.session.delete(id)
-            db.session.commit()
+            UserModel.delete(id)
             return ({"message": "User Deleted Successfully"})
         return ({"message": "User couldn't found"})
 
@@ -57,6 +56,11 @@ class Users(Resource):
         if id:
             id.username = username
             id.password = password
-            db.session.commit()
+            UserModel.update(id)
             return user_schema.jsonify(id)
         return ({"message": "User does not exist"})
+
+
+# class Login(Resource):
+#     username = request.json['username']
+#     password = request.json['password']
