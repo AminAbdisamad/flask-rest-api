@@ -42,6 +42,7 @@ class Users(Resource):
             return user_schema.jsonify(id)
         return ({"message": "user not found"}), 404
 
+    @jwt_required
     def delete(self, id):
         id = UserModel.query.get(id)
         if id:
@@ -49,6 +50,7 @@ class Users(Resource):
             return ({"message": "User Deleted Successfully"})
         return ({"message": "User couldn't found"})
 
+    @jwt_required
     def put(self, id):
         id = UserModel.query.get(id)
         username = request.json['username']
